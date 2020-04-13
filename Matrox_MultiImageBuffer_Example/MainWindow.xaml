@@ -5,8 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Matrox_MultiImageBuffer_Example"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" MinHeight="450" MinWidth="800" Loaded="Window_Loaded" Closing="Window_Closing">
     <Grid>
-        
+        <TextBlock Text="Camera" Margin="10,7.5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ComboBox IsEnabled="{Binding IsStop}" ItemsSource="{Binding MatroxCameraList}" SelectedItem="{Binding CurrentUseCamera}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70, 5" Width="100">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding DigitizerID}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Text="Image Buffer Count" Margin="200, 7.5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding BufferCount}" Margin="320,7.5,0,0" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Image Margin="10,40,220,10" Source="{Binding DisplayBitmapSource}"/>
+        <Grid HorizontalAlignment="Right" Width="200" Margin="10">
+            <Button VerticalAlignment="Bottom" Click="Button_Click">
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsStop}" Value="False">
+                                <Setter Property="Button.Content" Value="Stop"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsStop}" Value="True">
+                                <Setter Property="Button.Content" Value="Start"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
     </Grid>
 </Window>
